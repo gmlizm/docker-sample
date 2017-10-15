@@ -1,0 +1,37 @@
+### docker-compose for services
+version: "3.2"
+
+services:
+  
+  db_mysql:
+    container_name: db_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_LOG_CONSOLE: "false"
+    hostname: db_mysql
+    image: mysql/mysql-server:latest
+    networks:
+      - net_test
+    ports:
+      - "3306:3306"
+    volumes:
+      - type: bind
+        source: ./config/my.cnf
+        target: /etc/my.cnf
+      - type: volume
+        source: data_mysql_data
+        target: /var/lib/mysql
+        volume:
+          nocopy: true
+      - type: volume
+        source: data_mysql_log
+        target: /var/log
+
+volumes:
+  data_mysql_conf:
+  data_mysql_data:
+  data_mysql_log:
+
+networks:
+  net_test:

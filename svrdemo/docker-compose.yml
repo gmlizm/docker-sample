@@ -1,0 +1,94 @@
+### docker-compose for services
+version: "3.2"
+
+services:
+  svr_zk:
+    container_name: svr_zk
+    environment:
+      ZOO_PORT: 2181
+      ZOO_TICK_TIME: 2000
+      ZOO_INIT_LIMIT: 5
+      ZOO_SYNC_LIMIT: 2
+      ZOO_MAX_CLIENT_CNXNS: 60
+    hostname: svr_zk
+    image: zookeeper:latest
+    networks:
+      - net_test
+    ports:
+      - "2181:2181"
+      - "2888:2888"
+      - "3888:3888"
+    volumes:
+      - type: volume
+        source: data_zk_conf
+        target: /conf
+       # volume:
+       #   nocopy: true
+      - type: volume
+        source: data_zk_data
+        target: /data
+        volume:
+          nocopy: true
+      - type: volume
+        source: data_zk_log
+        target: /datalog
+        volume:
+          nocopy: true
+  
+  db_mysql:
+    container_name: db_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_LOG_CONSOLE: "false"
+    hostname: db_mysql
+    image: mysql/mysql-server:latest
+    networks:
+      - net_test
+    ports:
+      - "3306:3306"
+    volumes:
+      - type: bind
+        source: ./config/my.cnf
+        target: /etc/my.cnf
+      - type: volume
+        source: data_mysql_data
+        target: /var/lib/mysql
+        volume:
+          nocopy: true
+      - type: volume
+        source: data_mysql_log
+        target: /var/log
+
+  db_redis:
+    container_name: db_redis
+    command: redis-server /data/redis.conf
+    #environment:
+    #  REDIS_ENV_ITEM: 'XXX'
+    hostname: db_redis
+    image: redis:latest
+    networks:
+      - net_test
+    ports:
+      - "6379:6379"
+    volumes:
+      - type: bind
+        source: ./config/redis.conf
+        target: /data/redis.conf
+      - type: volume
+        source: data_redis_data
+        target: /data
+        volume:
+          nocopy: true
+
+volumes:
+  data_mysql_conf:
+  data_mysql_data:
+  data_mysql_log:
+  data_redis_data:
+  data_zk_conf:
+  data_zk_data:
+  data_zk_log:
+
+networks:
+  net_test:

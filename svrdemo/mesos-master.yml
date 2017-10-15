@@ -1,0 +1,56 @@
+### docker-compose for mesos-master cluster
+version: "3.2"
+
+services:
+  svr_mesosm1:
+    container_name: svr_mesosm1
+    environment:
+      MESOS_CLUSTER: "mesos_cluster"
+      MESOS_PORT: 5050
+      MESOS_QUORUM: 2 
+      MESOS_ZK: zk://svr_zk1:2181,svr_zk2:2181,svr_zk3:2181/mesos
+    image: mesoscloud/mesos-master:latest
+    hostname: svr_mesosm1
+    networks:
+      - net_test
+    ports:
+      - "5050:5050"
+    #volumes:
+      #- type: volume
+      #  source: data_zk1_conf
+      #  target: /conf
+       # volume:
+       #   nocopy: true
+  
+  svr_mesosm2:
+    container_name: svr_mesosm2
+    environment:
+      MESOS_CLUSTER: "mesos_cluster"
+      MESOS_PORT: 5050
+      MESOS_QUORUM: 2 
+      MESOS_ZK: zk://svr_zk1:2181,svr_zk2:2181,svr_zk3:2181/mesos
+    hostname: svr_mesosm2
+    image: mesoscloud/mesos-master:latest
+    networks:
+      - net_test
+    ports:
+      - "5051:5050"
+
+  svr_mesosm3:
+    container_name: svr_mesosm3
+    environment:
+      MESOS_CLUSTER: "mesos_cluster"
+      MESOS_PORT: 5050
+      MESOS_QUORUM: 2 
+      MESOS_ZK: zk://svr_zk1:2181,svr_zk2:2181,svr_zk3:2181/mesos
+    hostname: svr_mesosm3
+    image: mesoscloud/mesos-master:latest
+    networks:
+      - net_test
+    ports:
+      - "5052:5050"
+
+#volumes:
+
+networks:
+  net_test:
