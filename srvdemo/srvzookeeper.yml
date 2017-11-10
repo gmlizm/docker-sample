@@ -6,7 +6,7 @@ services:
 ### srv_zk container
 ######################################################
   srv_zk:
-    container_name: srv_zk
+    container_name: ${ZK_NAME}
     environment:
       ZOO_PORT: 2181
       ZOO_TICK_TIME: 2000
@@ -14,16 +14,16 @@ services:
       ZOO_SYNC_LIMIT: 2
       ZOO_MAX_CLIENT_CNXNS: 60
       ZOO_MY_ID: 1
-      ZOO_SERVERS: server.1=srv_zk:2888:3888
-    hostname: srv_zk
+      ZOO_SERVERS: server.1=${ZK_NAME}:2888:3888
+    hostname: ${ZK_NAME}
     image: zookeeper:latest
     networks:
       - xnet
     ports:
-      - "2181:2181"
+      - "${ZK_PORT}:2181"
     volumes:
       - type: volume
-        source: data_zk_conf
+        source: v_zk_conf
         target: /conf
        # volume:
        #   nocopy: true
@@ -35,7 +35,7 @@ services:
         target: /datalog
 
 volumes:
-  data_zk_conf:
+  v_zk_conf:
 
 networks:
   xnet:

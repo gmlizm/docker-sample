@@ -1,0 +1,12 @@
+### .gitignore files ###
+logs/*
+work/
+data/
+pid/
+web/
+
+*.jar
+*.tar.gz
+*.war
+*.zip
+*.log

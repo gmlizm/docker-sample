@@ -6,17 +6,17 @@ services:
 ### db_mysql container
 ######################################################
   db_mysql:
-    container_name: db_mysql
+    container_name: ${MYSQL_NAME}
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_ROOT_HOST: "%"
       MYSQL_LOG_CONSOLE: "false"
-    hostname: db_mysql
+    hostname: ${MYSQL_NAME}
     image: mysql/mysql-server:latest
     networks:
       - xnet
     ports:
-      - "3306:3306"
+      - "${MYSQL_PORT}:3306"
     volumes:
       - type: bind
         source: ./conf/my.cnf

@@ -6,15 +6,15 @@ services:
 ### srv_nginx container
 ######################################################
   srv_nginx:
-    container_name: srv_nginx
+    container_name: ${NGINX_NAME}
     #environment:
     #  ZOO_PORT: 2181
-    hostname: srv_nginx
+    hostname: ${NGINX_NAME}
     image: nginx:latest
     networks:
       - xnet
     ports:
-      - "8080:80"
+      - "${NGINX_PORT}:80"
     volumes:
       - type: bind
         source: ./conf/nginx
