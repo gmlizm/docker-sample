@@ -1,0 +1,29 @@
+### yyspace docker-compose for services
+version: "3.2"
+
+services:
+######################################################
+### db_elastic container
+######################################################
+  db_elastic:
+    container_name: ${ELASTIC_NAME}
+    environment:
+      - cluster.name=es-cluster
+      - bootstrap.memory_lock=true
+    hostname: ${ELASTIC_NAME}
+    image: elastic:6.0.0
+    networks:
+      - xnet
+    ports:
+      - "${ELASTIC_HTTP_PORT}:9200"
+      - "${ELASTIC_TCP_PORT}:9300"
+    volumes:
+      - type: bind
+        source: ./conf/elastic
+        target: /usr/share/elasticsearch/config
+      - type: bind
+        source: ./data/elastic
+        target: /usr/share/elasticsearch/data
+
+networks:
+  xnet:

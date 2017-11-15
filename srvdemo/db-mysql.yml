@@ -1,0 +1,32 @@
+### yyspace docker-compose for services
+version: "3.2"
+
+services:
+######################################################
+### db_mysql container
+######################################################
+  db_mysql:
+    container_name: ${MYSQL_NAME}
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_LOG_CONSOLE: "false"
+    hostname: ${MYSQL_NAME}
+    image: mysql/mysql-server:latest
+    networks:
+      - xnet
+    ports:
+      - "${MYSQL_PORT}:3306"
+    volumes:
+      - type: bind
+        source: ./conf/my.cnf
+        target: /etc/my.cnf
+      - type: bind
+        source: ./data/mysql/data
+        target: /var/lib/mysql
+      - type: bind
+        source: ./data/mysql/log
+        target: /var/log
+
+networks:
+  xnet:
