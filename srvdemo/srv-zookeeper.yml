@@ -3,9 +3,9 @@ version: "3.2"
 
 services:
 ######################################################
-### srv_zk container
+### srv-zookeeper container
 ######################################################
-  srv_zk:
+  srv-zookeeper:
     container_name: ${ZOOKEEPER_NAME}
     environment:
       ZOO_PORT: 2181

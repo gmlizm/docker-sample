@@ -3,9 +3,9 @@ version: "3.2"
 
 services:
 ######################################################
-### db_mysql container
+### db-mysql container
 ######################################################
-  db_mysql:
+  db-mysql:
     container_name: ${MYSQL_NAME}
     environment:
       MYSQL_ROOT_PASSWORD: root
