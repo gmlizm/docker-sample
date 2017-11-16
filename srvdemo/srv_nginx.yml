@@ -3,9 +3,9 @@ version: "3.2"
 
 services:
 ######################################################
-### srv-nginx container
+### srv_nginx container
 ######################################################
-  srv-nginx:
+  srv_nginx:
     container_name: ${NGINX_NAME}
     #environment:
     #  ZOO_PORT: 2181

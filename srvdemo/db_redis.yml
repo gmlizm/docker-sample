@@ -3,9 +3,9 @@ version: "3.2"
 
 services:
 ######################################################
-### db-redis container
+### db_redis container
 ######################################################
-  db-redis:
+  db_redis:
     container_name: ${REDIS_NAME}
     command: redis-server /data/redis.conf
     #environment:
