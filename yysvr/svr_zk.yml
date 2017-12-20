@@ -2,7 +2,7 @@
 version: "3.2"
 
 services:
-  srv_zkui:
+  svr_zkui:
     container_name: ${ZKUI_NAME}
     hostname: ${ZKUI_NAME}
     image: zkui
@@ -13,9 +13,9 @@ services:
     ports:
       - "${ZKUI_PORT}:9090"
     depends_on:
-      - srv_zk
+      - svr_zk
 
-  srv_zk:
+  svr_zk:
     container_name: ${ZK_NAME}
     hostname: ${ZK_NAME}
     image: zookeeper:latest
