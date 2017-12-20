@@ -29,6 +29,7 @@ services:
       ZOO_MAX_CLIENT_CNXNS: 60
       ZOO_MY_ID: 1
       ZOO_SERVERS: server.1=zk1:2888:3888 server.2=zk2:2888:3888 server.3=zk3:2888:3888
+      SERVER_JVMFLAGS: -Xms128m -Xmx128m -Xmn64m -XX:SurvivorRatio=6
     networks:
       - yynet
     ports:
@@ -49,6 +50,7 @@ services:
       ZOO_MAX_CLIENT_CNXNS: 60
       ZOO_MY_ID: 2
       ZOO_SERVERS: server.1=zk1:2888:3888 server.2=zk2:2888:3888 server.3=zk3:2888:3888
+      SERVER_JVMFLAGS: -Xms128m -Xmx128m -Xmn64m -XX:SurvivorRatio=6
     networks:
       - yynet
     ports:
@@ -69,6 +71,7 @@ services:
       ZOO_MAX_CLIENT_CNXNS: 60
       ZOO_MY_ID: 3
       ZOO_SERVERS: server.1=zk1:2888:3888 server.2=zk2:2888:3888 server.3=zk3:2888:3888
+      SERVER_JVMFLAGS: -Xms128m -Xmx128m -Xmn64m -XX:SurvivorRatio=6
     networks:
       - yynet
     ports:
