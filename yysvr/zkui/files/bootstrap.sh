@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ZK_SERVER=${ZK_SERVER:-"localhost:2181"}
-JAVA_OPTS=${JAVA_OPTS:-"-Xms192m -Xmx192m -Xmn96m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=128m"}
+JAVA_OPTS=${JAVA_OPTS:-"-Xmx128m -XX:MaxMetaspaceSize=128m"}
 
 USER_SET=${USER_SET:-"{\"users\": [{ \"username\":\"admin\" , \"password\":\"manager\",\"role\": \"ADMIN\" \},{ \"username\":\"appconfig\" , \"password\":\"appconfig\",\"role\": \"USER\" \}]\}"}
 LOGIN_MESSAGE=${LOGIN_MESSAGE:-"Please login using admin\/manager or appconfig\/appconfig."}
