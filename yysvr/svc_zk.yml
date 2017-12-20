@@ -6,12 +6,12 @@ services:
     container_name: ${ZKUI_NAME}
     hostname: ${ZKUI_NAME}
     image: zkui:2.0-SNAPSHOT
+    environment:
+      ZK_SERVER: ${ZK1_NAME}:2181,${ZK2_NAME}:2181,${ZK3_NAME}:2181
     networks:
       - yynet
     ports:
       - "${ZKUI_PORT}:9090"
-    volumes:
-      - ./conf/zkui.cfg:/var/app/config.cfg
     depends_on:
       - srv_zk1
       - srv_zk2

@@ -1,3 +1,6 @@
+
+exec:  cd zkui; docker build -t zkui:latest -f Dockerfile .
+#############################################################
 zkui-github: https://github.com/DeemOpen/zkui
 git clone https://github.com/DeemOpen/zkui
 cd zkui && make build
