@@ -5,7 +5,7 @@ services:
   srv_zkui:
     container_name: ${ZKUI_NAME}
     hostname: ${ZKUI_NAME}
-    image: zkui:2.0-SNAPSHOT
+    image: zkui
     environment:
       ZK_SERVER: ${ZK_NAME}:2181
     networks:
