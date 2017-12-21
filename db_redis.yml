@@ -1,0 +1,24 @@
+### yyspace docker-compose for services
+version: "3.2"
+
+services:
+######################################################
+### db_redis container
+######################################################
+  db_redis:
+    image: redis:latest
+    command: redis-server /data/redis.conf
+    container_name: ${REDIS_NAME}
+    hostname: ${REDIS_NAME}
+    #environment:
+    #  REDIS_ENV_ITEM: 'XXX'
+    networks:
+      - yynet
+    ports:
+      - "${REDIS_PORT}:6379"
+    volumes:
+      - ./conf/redis.conf:/data/redis.conf
+      - ./data/redis/data:/data
+
+networks:
+  yynet:

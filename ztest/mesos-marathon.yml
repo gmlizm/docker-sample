@@ -1,0 +1,28 @@
+### docker-compose for mesos-marathon
+version: "3.2"
+
+services:
+  svr_marathon:
+    container_name: svr_marathon
+    environment:
+      #MARATHON_PORT: 8080
+      MARATHON_MASTER: zk://svr_zk1:2181,svr_zk2:2181,svr_zk3:2181/mesos
+      MARATHON_ZK: zk://svr_zk1:2181,svr_zk2:2181,svr_zk3:2181/marathon
+    hostname: svr_marathon
+    image: mesoscloud/marathon:latest
+    networks:
+      - net_test
+    ports:
+      - "8081:8080"
+    #volumes:
+      #- type: volume
+      #  source: data_zk1_conf
+      #  target: /conf
+       # volume:
+       #   nocopy: true
+  
+
+#volumes:
+
+networks:
+  net_test:

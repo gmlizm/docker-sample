@@ -1,0 +1,30 @@
+### yyspace docker-compose for services
+version: "3.2"
+
+services:
+######################################################
+### srv_nginx container
+######################################################
+  srv_nginx:
+    container_name: ${NGINX_NAME}
+    #environment:
+    #  ZOO_PORT: 2181
+    hostname: ${NGINX_NAME}
+    image: nginx:latest
+    networks:
+      - xnet
+    ports:
+      - "${NGINX_PORT}:80"
+    volumes:
+      - type: bind
+        source: ./conf/nginx
+        target: /etc/nginx
+      - type: bind
+        source: ./data/nginx
+        target: /opt/nginx
+      - type: bind
+        source: ./data/nginxlogs
+        target: /var/log/nginx
+
+networks:
+  xnet:

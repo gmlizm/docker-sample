@@ -1,0 +1,41 @@
+### docker-compose for services
+version: "3.2"
+
+services:
+  svr_zkui:
+    container_name: ${ZKUI_NAME}
+    hostname: ${ZKUI_NAME}
+    image: zkui
+    environment:
+      ZK_SERVER: ${ZK_NAME}:2181
+    networks:
+      - yynet
+    ports:
+      - "${ZKUI_PORT}:9090"
+    depends_on:
+      - svr_zk
+
+  svr_zk:
+    container_name: ${ZK_NAME}
+    hostname: ${ZK_NAME}
+    image: zookeeper:latest
+    environment:
+      ZOO_PORT: 2181
+      ZOO_TICK_TIME: 2000
+      ZOO_INIT_LIMIT: 5
+      ZOO_SYNC_LIMIT: 2
+      ZOO_MAX_CLIENT_CNXNS: 60
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=${ZK_NAME}:2888:3888
+      SERVER_JVMFLAGS: -Xms128m -Xmx128m -Xmn64m -XX:SurvivorRatio=4
+    networks:
+      - yynet
+    ports:
+      - "${ZK_PORT}:2181"
+    volumes:
+      - ./data/zk:/data
+      - ./data/zk:/datalog
+  
+
+networks:
+  yynet:
