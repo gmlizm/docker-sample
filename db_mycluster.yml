@@ -1,0 +1,65 @@
+### yyspace docker-compose for services
+version: "3.2"
+
+services:
+######################################################
+### db_mycluster container
+######################################################
+  ndb_cluster1:
+    image: mysql/mysql-cluster:latest
+    command: ndb_mgmd -f /etc/mysql-cluster.cnf --initial
+    container_name: ndb_cluster1
+    hostname: ndb_cluster1
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_LOG_CONSOLE: "false"
+    networks:
+      - yynet
+    ports:
+      - "33060:33060"
+    volumes:
+      - ./conf/mycluster/my.cnf:/etc/my.cnf
+      - ./conf/mycluster/mysql-cluster.cnf:/etc/mysql-cluster.cnf
+      - ./data/mysql/ndb_cluster1:/var/lib/mysql
+      #- ./data/mysql/log:/var/log
+
+  ndb_d1:
+    image: mysql/mysql-cluster:latest
+    command: ndbd --initial
+    container_name: ndb_d1
+    hostname: ndb_d1
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_LOG_CONSOLE: "false"
+    networks:
+      - yynet
+    ports:
+      - "1186:1186"
+    volumes:
+      - ./conf/mycluster/my.cnf:/etc/my.cnf
+      - ./conf/mycluster/mysql-cluster.cnf:/etc/mysql-cluster.cnf
+      - ./data/mysql/ndb_d1:/var/lib/mysql
+
+  ndb_mysqld1:
+    image: mysql/mysql-cluster:latest
+    command: mysqld
+    container_name: ndb_mysqld1
+    hostname: ndb_mysqld1
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_LOG_CONSOLE: "false"
+    networks:
+      - yynet
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./conf/mycluster/my.cnf:/etc/my.cnf
+      - ./conf/mycluster/mysql-cluster.cnf:/etc/mysql-cluster.cnf
+      - ./data/mysql/ndb_mysqld1:/var/lib/mysql
+
+
+networks:
+  yynet:

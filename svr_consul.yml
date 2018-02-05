@@ -1,0 +1,25 @@
+### docker-compose for services
+version: "3.2"
+
+services:
+  svr_consul:
+    container_name: ${CONSUL_NAME}
+    hostname: ${CONSUL_NAME}
+    image: consul:latest
+    #environment:
+    #  ZOO_PORT: 2181
+    networks:
+      - yynet
+    ports:
+      - "8300:8300"
+      - "8301:8301"
+      - "8302:8302"
+      - "8500:8500"
+      - "8600:8600"
+    volumes:
+      #- ./conf/consul-config:/consul/config
+      - ./data/consul/data:/consul/data
+  
+
+networks:
+  yynet:
